@@ -1,6 +1,8 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
 
 print("\n Lojistik Regresyon İçin Veri Seti Oluşturuluyor...\n")
 
@@ -35,3 +37,26 @@ print("\n Logistic Regresyon Modeli Eğitildi!")
 print("Katsayılar:")
 print(model.coef_)
 print(f"Intercept (b0): {model.intercept_}")
+
+print("\n KNN Modeli Eğitiliyor...")
+
+model_knn = KNeighborsClassifier(n_neighbors=3)
+
+model_knn.fit(x_train_cls,y_train_cls)
+
+print("\n KNN Modeli Eğitildi!")
+
+print("\n KNN Modeli Test Verisi ile Tahmin Yapıyor...")
+
+y_pred_knn = model_knn.predict(x_test_cls)
+
+print("\n Gerçek vs Tahmin Edilen Değerler:")
+for gerçek, tahmin in zip(y_test_cls,y_pred_knn):
+    print(f"Gerçek: {gerçek} -> Tahmin: {tahmin}")
+
+print("\n KNN Modeli Performansı Ölçülüyor...")
+
+accuracy_knn = accuracy_score(y_test_cls,y_pred_knn)
+
+print("\n KNN Modeli Performans Sonuçları:")
+print(f"Doğruluk Skoru: {accuracy_knn}")
