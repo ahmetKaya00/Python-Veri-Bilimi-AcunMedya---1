@@ -7,6 +7,7 @@ from sklearn.metrics import accuracy_score
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import classification_report
 
 
 iris = load_iris()
@@ -35,7 +36,7 @@ svm_pred = svm_model.predict(x_test)
 print("SVM Doğruluğu:",accuracy_score(y_test,svm_pred))
 
 
-new_flower = np.array([[5.1,3.5,1.4,0.2]])
+new_flower = np.array([[5.1,3.5,4.3,1.7]])
 
 predict_tree = tree_model.predict(new_flower)
 print("Karar Ağacı Tahmini:",iris.target_names[predict_tree[0]])
@@ -68,3 +69,9 @@ disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=iris.target_na
 disp.plot(cmap=plt.cm.Blues)
 plt.title("Karar Agac - Confusion Matrix")
 plt.show()
+
+report = classification_report(y_test,y_pred, target_names=iris.target_names)
+
+print("Karar Ağacı - Sınıflandırma Raporu:\n")
+print(report)
+
